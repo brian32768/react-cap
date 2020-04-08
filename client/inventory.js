@@ -24,7 +24,7 @@ const InventoryForm = () => {
     };
     return (
         <>
-            <SimpleTable data={sample_data} />
+            <SimpleTable data={inventory} />
             <form onSubmit={handleSubmit}>
                 <input type="text" />
             </form> 
