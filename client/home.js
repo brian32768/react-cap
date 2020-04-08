@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';  // eslint-disable-line no-unused-vars
 import InventoryForm from './inventory';
+import TestsForm from './test_results';
 //import {Map, control, layer, source} from '../src' // eslint-disable-line no-unused-vars
 //import {Container, Row, Col, Button} from 'reactstrap' // eslint-disable-line no-unused-vars
 //import {MapProvider} from '../src/map-context' // eslint-disable-line no-unused-vars
@@ -37,8 +38,10 @@ const Home = () => {
  */    
     return (
     <>
-        <h2>Simple database table</h2>
+        <h2>Inventory</h2>
             <InventoryForm/>
+        <h2>Test results</h2>
+            <TestsForm/>
     </>
     );
 }

@@ -7,13 +7,13 @@ const sample_data = [
     { ID: 2, name: "Julie", count: 456 },
 ]
 
-const capurl = "http://localhost:3000/list";
+const inventory_url = "http://localhost:3000/inventory";
 
 const InventoryForm = () => {
     const [inventory, setInventory] = useState(null);
     useEffect(() => {
         async function fetchData() {
-            const resp = await axios.get(capurl)
+            const resp = await axios.get(inventory_url)
             setInventory(resp.data);
         }
         fetchData();
