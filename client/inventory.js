@@ -7,7 +7,8 @@ const sample_data = [
     { ID: 2, name: "Julie", count: 456 },
 ]
 
-const inventory_url = "http://localhost:3000/inventory";
+const SQLHOST = process.env.SQLHOST
+const inventory_url = `${SQLHOST}/inventory`
 
 const InventoryForm = () => {
     const [inventory, setInventory] = useState(null);

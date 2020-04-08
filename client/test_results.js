@@ -7,7 +7,8 @@ const sample_data = [
     { ID: 2, name: "Julie", count: 456 },
 ]
 
-const tests_url = "http://localhost:3000/tests";
+const SQLHOST = process.env.SQLHOST
+const tests_url = `${SQLHOST}/tests`
 
 const TestsForm = () => {
     const [tests, setTests] = useState(null);
