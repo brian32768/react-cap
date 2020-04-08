@@ -10,8 +10,8 @@
     "main": "./index.html",
     "scripts": {
         "lint": "eslint .",
-        "test": "parcel serve test.html --open",
-        "start": "nodemon server.js",
+        "debug": "nodemon server.js",
+        "start": "node server.js",
         "build": "parcel build index.html",
         "build-package": "npm run clean && npm run transpile && node tasks/prepare-package && cp README.md build/@map46/ol-react",
         "clean": "rm -rf build/*",
