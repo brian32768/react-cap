@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'  // eslint-disable-line no-un
 import SimpleTable from './simpletable'
 import axios from 'axios'
 
-const sample_table = [
-    { name: "Brian", count: 123 },
-    { name: "Julie", count: 456 },
+const sample_data = [
+    { ID: 1, name: "Brian", count: 123 },
+    { ID: 2, name: "Julie", count: 456 },
 ]
 
 const capurl = "http://localhost:3000/list";
@@ -22,10 +22,9 @@ const InventoryForm = () => {
     const handleSubmit = (event) => {
         console.log("submit! obey!")
     };
-
     return (
         <>
-            <SimpleTable data={inventory} />
+            <SimpleTable data={sample_data} />
             <form onSubmit={handleSubmit}>
                 <input type="text" />
             </form> 

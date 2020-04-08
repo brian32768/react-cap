@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';  // eslint-disable-line no-unused-vars
+import React, {useState, useContext, useEffect} from 'react';  // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types'
 import {Table} from 'reactstrap'
 
@@ -23,9 +23,10 @@ const SimpleTable = (props) => {
         })
     }
 
-    const RenderRow = (props) => {
-        return props.keys.map((key, index) => {
-            return <td key={props.data[key]}>{props.data[key]}</td>
+    const RenderRow = ({keys, row}) => {
+        return keys.map((field, index) => {
+            //console.log(index, row[field])
+            return <td key={field}>{row[field]}</td>
         })
     }
     const getRowData = () => {
@@ -33,14 +34,15 @@ const SimpleTable = (props) => {
         const data = props.data;
         const keys = getKeys(data)
         return data.map((row,index) => {
-            return <tr key={index}><th>{index+1}</th><RenderRow key={index} data={row} keys={keys}/></tr>
+            const id = row.ID
+            return <tr key={id}><RenderRow keys={keys} row={row}/></tr>
         })
     }
 
     return (
             <Table dark>
                 <thead>
-                <tr><th>#</th>{getHeader()}</tr>
+                <tr>{getHeader()}</tr>
                 </thead>
                 <tbody>
                     {getRowData()}
