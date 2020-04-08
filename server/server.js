@@ -14,7 +14,8 @@ app.use(function (req, res, next) {
 const dsn = `mysql://${config.USER}:${config.PASSWORD}@${config.HOST}/${config.DBNAME}`
 //console.log(dsn);
 
-const select = "SELECT * FROM inventory"
+const select_inventory = "SELECT * FROM inventory"
+const select_tests = "SELECT * FROM test_results"
 
 app.get('/', (req, res) => res.send(`Hello, ${config.USER}`))
 app.all('/ping', (req, res) => res.send(new Date()))
@@ -22,9 +23,15 @@ app.all('/ping', (req, res) => res.send(new Date()))
 const mysql = require('mysql');
 const db = mysql.createConnection(dsn);
 
-app.get('/list', async(req, res) => {
-    db.query(select, (err, pages) => {
-        (err)? res.send(err) : res.json(pages);
+app.get('/inventory', async (req, res) => {
+    db.query(select_inventory, (err, pages) => {
+        (err) ? res.send(err) : res.json(pages);
+    })
+})
+
+app.get('/tests', async (req, res) => {
+    db.query(select_tests, (err, pages) => {
+        (err) ? res.send(err) : res.json(pages);
     })
 })
 
