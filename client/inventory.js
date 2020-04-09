@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'  // eslint-disable-line no-unused-vars
 import SimpleTable from './simpletable'
 import axios from 'axios'
+import {SQLHOST} from './config'
 
 const sample_data = [
     { ID: 1, name: "Brian", count: 123 },
     { ID: 2, name: "Julie", count: 456 },
 ]
 
-const SQLHOST = process.env.SQLHOST
 const inventory_url = `${SQLHOST}/inventory`
 
 const InventoryForm = () => {

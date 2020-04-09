@@ -1,7 +1,6 @@
 import React from 'react';  // eslint-disable-line no-unused-vars
 import PropTypes from 'prop-types'
 import './App.css'
-import 'dotenv'
 
 import Home from './home'
 

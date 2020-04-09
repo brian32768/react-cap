@@ -4,10 +4,10 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-const HOST = process.env.HOST;
+const DBHOST = process.env.DBHOST;
 const DBNAME = process.env.DBNAME;
-const USER = process.env.USER;
-const PASSWORD = process.env.PASSWORD;
+const DBUSER = process.env.DBUSER;
+const DBPASSWORD = process.env.DBPASSWORD;
 
 
-module.exports = { HOST, DBNAME, USER, PASSWORD}
+module.exports = { DBHOST, DBNAME, DBUSER, DBPASSWORD}

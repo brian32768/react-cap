@@ -13,9 +13,9 @@ app.use(function (req, res, next) {
 });
 
 const db_config = {
-    host: config.HOST,
-    user: config.USER,
-    password: config.PASSWORD,
+    host: config.DBHOST,
+    user: config.DBUSER,
+    password: config.DBPASSWORD,
     database: config.DBNAME
 }
 
@@ -56,7 +56,7 @@ function handleDisconnect() {
 }
 
 
-app.get('/', (req, res) => res.send(`Hello, ${config.USER}`))
+app.get('/', (req, res) => res.send(`Hello, ${config.DBUSER}`))
 app.all('/ping', (req, res) => res.send(new Date()))
 
 app.get('/inventory', async (req, res) => {
