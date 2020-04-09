@@ -9,9 +9,31 @@
 #   a volume to persist sql database
 version: '3.6'
 services:
-#    webapp:
-#       container_name: cap_webapp
-#       image: node:12
+    webapp:
+        container_name: cap_webapp
+        image: cap_webapp
+        build:
+            context: client
+            dockerfile: Dockerfile.webapp
+        hostname: capacity
+        domainname: ${DOMAINNAME}
+        env_file: .env
+        environment:
+            VIRTUAL_HOST: ${WEBAPP_VIRTUAL_HOST}
+            VIRTUAL_PORT: 1234
+            NETWORK_ACCESS: internal
+            LETSENCRYPT_HOST: ${WEBAPP_VIRTUAL_HOST}
+            LETSENCRYPT_MAIL: ${MY_EMAIL}
+        expose: 
+            - 1234
+        ports:
+            - 1234:1234
+            - 9229:9229
+        networks:
+            - proxy_net
+        restart: unless-stopped
+        depends_on: 
+            - "api-server"
 
     api-server:
         container_name: cap-api-server
