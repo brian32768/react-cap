@@ -9,11 +9,35 @@
 #   a volume to persist sql database
 version: '3.6'
 services:
+    webapp:
+        container_name: cap_webapp
+        image: node:12
+
+    api-server:
+        container_name: cap-api-server
+        image: brian32768/cap_api_server
+        build:
+            context: server
+            dockerfile: Dockerfile.api_server
+        hostname: api
+        domainname: ${DOMAINNAME}
+        env_file: .env
+        expose: 
+            - "3000"
+        ports:
+            - "3000:3000"
+        networks:
+            - proxy_net
+            - cap_net
+        restart: unless-stopped
+        depends_on: 
+            - "db"
+
     db:
         container_name: cap-mysql
-        hostname: db
-        domainname: map46.com
         image: mysql
+        hostname: db
+        domainname: ${DOMAINNAME}
         env_file: .env
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -30,10 +54,10 @@ services:
 
     adminer:
         container_name: cap-adminer
-        hostname: adminer
-        domainname: map46.com
-        env_file: .env
         image: adminer
+        hostname: adminer
+        domainname: ${DOMAINNAME}
+        env_file: .env
         expose:
             - "8080"
         # Only open this port for testing;
@@ -49,24 +73,6 @@ services:
         networks:
             - proxy_net
             - cap_net
-        restart: unless-stopped
-        depends_on: 
-            - "db"
-
-    nodeserver:
-        container_name: cap-server
-        env_file: .env
-        image: brian32768/cap_server
-        expose: 
-            - "3000"
-        ports:
-            - "3000:3000"
-        networks:
-            - proxy_net
-            - cap_net
-        build:
-            context: .
-            dockerfile: Dockerfile.nodeserver
         restart: unless-stopped
         depends_on: 
             - "db"

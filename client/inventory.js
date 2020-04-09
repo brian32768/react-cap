@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'  // eslint-disable-line no-unused-vars
 import SimpleTable from './simpletable'
 import axios from 'axios'
-import {SQLHOST} from './config'
+import {APIHOST} from './config'
 
 const sample_data = [
     { ID: 1, name: "Brian", count: 123 },
     { ID: 2, name: "Julie", count: 456 },
 ]
 
-const inventory_url = `${SQLHOST}/inventory`
+const inventory_url = `${APIHOST}/inventory`
 
 const InventoryForm = () => {
     const [inventory, setInventory] = useState(null);
@@ -21,7 +21,7 @@ const InventoryForm = () => {
     }, []);
       
     const handleSubmit = (event) => {
-        console.log("submit! obey!")
+        console.log("submission", event)
     };
     return (
         <>

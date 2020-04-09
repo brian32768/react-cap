@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'  // eslint-disable-line no-unused-vars
 import SimpleTable from './simpletable'
 import axios from 'axios'
-import {SQLHOST} from './config'
+import {APIHOST} from './config'
 
 const sample_data = [
     { ID: 1, name: "Brian", count: 123 },
     { ID: 2, name: "Julie", count: 456 },
 ]
 
-const tests_url = `${SQLHOST}/tests`
+const tests_url = `${APIHOST}/tests`
 
 const TestsForm = () => {
     const [tests, setTests] = useState(null);
