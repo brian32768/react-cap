@@ -17,6 +17,18 @@
             "skipFiles": [
                 "<node_internals>/**"
             ]
-        }
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to API Server",
+            "address": "127.0.0.1",
+            "port": 9229,
+            "localRoot": "${workspaceFolder}/server",
+            "remoteRoot": "/home/node",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        }            
     ]
 }

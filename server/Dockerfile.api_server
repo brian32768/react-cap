@@ -1,15 +1,10 @@
 FROM node:12
 MAINTAINER Brian H Wilson "brian@wildsong.biz"
+#ENV NODE_ENV production
 
 WORKDIR /home/node
-
-# Download the code
-RUN git clone https://github.com/brian32768/react-cap.git
-
-WORKDIR /home/node/react-cap/server
-RUN npm install
-#RUN npm run build
-
+COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+RUN npm install && mv node_modules ../
+COPY . .
 EXPOSE 3000/tcp
-
 CMD npm start

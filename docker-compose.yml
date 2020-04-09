@@ -9,29 +9,39 @@
 #   a volume to persist sql database
 version: '3.6'
 services:
-    webapp:
-        container_name: cap_webapp
-        image: node:12
+#    webapp:
+#       container_name: cap_webapp
+#       image: node:12
 
     api-server:
         container_name: cap-api-server
-        image: brian32768/cap_api_server
+        image: cap_api_server
         build:
             context: server
             dockerfile: Dockerfile.api_server
         hostname: api
         domainname: ${DOMAINNAME}
         env_file: .env
+        environment:
+            DBHOST: ${DBHOST}
+            # This database will be created if it does not exist.
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            # The database will be owned by this user/pass
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         expose: 
-            - "3000"
+            - 3000
         ports:
-            - "3000:3000"
+            - 3000:3000
+            - 9229:9229
         networks:
             - proxy_net
             - cap_net
         restart: unless-stopped
         depends_on: 
             - "db"
+        # Run with the debugger port open, for what it's worth.
+        command: node --inspect=0.0.0.0:9229 server.js
 
     db:
         container_name: cap-mysql
@@ -42,10 +52,12 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             # This database will be created if it does not exist.
-            MYSQL_DATABASE: ${DBNAME}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
             # The database will be owned by this user/pass
-            MYSQL_USER: ${DBUSER}
-            MYSQL_PASSWORD: ${DBPASSWORD}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        expose:
+            - 3306
         networks:
             - cap_net
 #        volumes:
@@ -66,7 +78,7 @@ services:
             - "8080:8080"
         environment:
             VIRTUAL_HOST: ${DBADMIN_VIRTUAL_HOST}
-            VIRTUAL_PORT: 80
+            VIRTUAL_PORT: 8080
             NETWORK_ACCESS: internal
             LETSENCRYPT_HOST: ${DBADMIN_VIRTUAL_HOST}
             LETSENCRYPT_MAIL: ${MY_EMAIL}
