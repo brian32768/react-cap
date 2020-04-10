@@ -4,6 +4,6 @@
 //    require('dotenv').config();
 //}
 
-const APIHOST = process.env.APIHOST || 'http://localhost:3000';
+const APIHOST = process.env.APIHOST;
 
 module.exports = {APIHOST }

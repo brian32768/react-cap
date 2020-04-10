@@ -14,11 +14,12 @@ RUN npm install parcel -g && npm install serve -g
 #COPY . .
 
 # npm and/or parcel will invoke the npm install as part of the build so that's not needed.
-RUN git clone https://github.com/brian32768/react-cap.git \
-        && cd /home/node/react-cap/client \
-        && npm run-script build
+RUN git clone https://github.com/brian32768/react-cap.git
 
 WORKDIR /home/node/react-cap/client
+
+# I can just do the pull since I've already cloned and this should get any updates.
+RUN git pull && npm run-script build
 
 EXPOSE 5000/tcp
 CMD serve dist
