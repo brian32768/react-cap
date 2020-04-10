@@ -6,4 +6,4 @@
 
 const APIHOST = process.env.APIHOST;
 
-module.exports = {APIHOST }
+module.exports = {APIHOST}

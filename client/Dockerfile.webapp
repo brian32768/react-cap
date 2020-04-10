@@ -6,7 +6,7 @@ WORKDIR /home/node
 
 RUN npm install parcel -g && npm install serve -g 
 
-# Hmmmm, I wonder if I could do a "git clone, parcel build, serve" process on every startup?
+# Hmmmm, I wonder if I could do "git pull, parcel build, serve" process on every container run?
 # Or maybe that's what CI does for me??
 
 # Using copy gets the version before it's checked in, 
@@ -20,6 +20,9 @@ WORKDIR /home/node/react-cap/client
 
 # I can just do the pull since I've already cloned and this should get any updates.
 RUN git pull && npm run-script build
+
+# You can override this from the command line.
+ENV APIHOST http://localhost:3000
 
 EXPOSE 5000/tcp
 CMD serve dist
