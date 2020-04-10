@@ -9,13 +9,16 @@ RUN npm install parcel -g && npm install serve -g
 # Hmmmm, I wonder if I could do a "git clone, parcel build, serve" process on every startup?
 # Or maybe that's what CI does for me??
 
-#COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-#RUN npm install
-
+# Using copy gets the version before it's checked in, 
+# but that's not really what I want in Docker deployment.
 #COPY . .
-RUN git clone git@github.com:brian32768/react-cap.git 
+
+# npm and/or parcel will invoke the npm install as part of the build so that's not needed.
+RUN git clone https://github.com/brian32768/react-cap.git \
+        && cd /home/node/react-cap/client \
+        && npm run-script build
+
 WORKDIR /home/node/react-cap/client
-RUN npm run-script build
 
 EXPOSE 5000/tcp
-CMD bash 
+CMD serve dist

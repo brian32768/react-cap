@@ -57,7 +57,8 @@ Once db and adminer are running you should be able to log in via adminer
 and populate the wildsong_covid tables from the SQL dump file.
 
 It's possible to run more than one client (webapp), so you can start up the docker-compose
-and then ALSO run in the client in a debugger. The API server name has to resolve correctly.
+and then ALSO run in the client in a debugger. The API server name has to resolve correctly, 
+set APIHOST in the environment.
 
 ## Deployment
 
