@@ -15,8 +15,6 @@ services:
         build:
             context: client
             dockerfile: Dockerfile.webapp
-        hostname: capacity
-        domainname: ${DOMAINNAME}
         env_file: .env
         environment:
             VIRTUAL_HOST: ${WEBAPP_VIRTUAL_HOST}
@@ -28,7 +26,7 @@ services:
             - 1234
         ports:
             - 1234:1234
-            - 9229:9229
+#            - 9229:9229
         networks:
             - proxy_net
         restart: unless-stopped
@@ -36,13 +34,12 @@ services:
             - "api-server"
 
     api-server:
-        container_name: cap-api-server
+        container_name: cap_api_server
         image: cap_api_server
         build:
             context: server
             dockerfile: Dockerfile.api_server
         hostname: api
-        domainname: ${DOMAINNAME}
         env_file: .env
         environment:
             DBHOST: ${DBHOST}
@@ -66,10 +63,8 @@ services:
         command: node --inspect=0.0.0.0:9229 server.js
 
     db:
-        container_name: cap-mysql
+        container_name: cap_mysql
         image: mysql
-        hostname: db
-        domainname: ${DOMAINNAME}
         env_file: .env
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -82,15 +77,13 @@ services:
             - 3306
         networks:
             - cap_net
-#        volumes:
-#            - cap_data:/var/lib/mysql
+        volumes:
+            - cap_data:/var/lib/mysql
         restart: unless-stopped
 
     adminer:
-        container_name: cap-adminer
+        container_name: cap_adminer
         image: adminer
-        hostname: adminer
-        domainname: ${DOMAINNAME}
         env_file: .env
         expose:
             - "8080"

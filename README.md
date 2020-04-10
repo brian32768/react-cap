@@ -10,6 +10,13 @@ Frontend: React + Bootstrap
 
 There is a sample.env, you have to copy it to .env and then edit it.
 
+Stupid auth problem - node's mysql client is out of date so execute this to downgrade.
+Replace the user and pass with the right ones.
+You can do this in adminer
+
+ALTER USER 'MYSQL_USER' IDENTIFIED WITH mysql_native_password BY 'PASSWORD';
+
+
 ## Testing
 
 You can test one component at a time. First the database,
@@ -49,6 +56,8 @@ wrong database or the table does not exist, or possibly the dataset is empty!
 Once db and adminer are running you should be able to log in via adminer
 and populate the wildsong_covid tables from the SQL dump file.
 
+It's possible to run more than one client (webapp), so you can start up the docker-compose
+and then ALSO run in the client in a debugger. The API server name has to resolve correctly.
 
 ## Deployment
 
