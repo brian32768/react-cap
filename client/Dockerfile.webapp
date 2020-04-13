@@ -6,23 +6,8 @@ WORKDIR /home/node
 
 RUN npm install parcel -g && npm install serve -g 
 
-# Hmmmm, I wonder if I could do "git pull, parcel build, serve" process on every container run?
-# Or maybe that's what CI does for me??
-
-# Using copy gets the version before it's checked in, 
-# but that's not really what I want in Docker deployment.
-#COPY . .
-
-# npm and/or parcel will invoke the npm install as part of the build so that's not needed.
-RUN git clone https://github.com/brian32768/react-cap.git
-
-WORKDIR /home/node/react-cap/client
-
-# I can just do the pull since I've already cloned and this should get any updates.
-RUN git pull && npm run-script build
-
-# You can override this from the command line.
-ENV APIHOST http://localhost:3000
+WORKDIR /home/node/react-cap
+RUN chmod 755 start_server.sh
 
 EXPOSE 5000/tcp
-CMD serve dist
+CMD start_server.sh
