@@ -4,6 +4,6 @@
 //    require('dotenv').config();
 //}
 
-const APIHOST = process.env.APIHOST;
+const APIHOST = "https://capacity.wildsong.biz/server"
 
 module.exports = {APIHOST}
