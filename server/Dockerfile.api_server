@@ -3,8 +3,10 @@ MAINTAINER Brian H Wilson "brian@wildsong.biz"
 #ENV NODE_ENV production
 
 WORKDIR /home/node
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-RUN npm install && mv node_modules ../
+
+# My build context should be in the server/ folder
 COPY . .
+RUN npm install
+
 EXPOSE 3000/tcp
 CMD npm start

@@ -10,7 +10,7 @@
 version: '3.6'
 services:
     webapp:
-        container_name: cap_webapp
+        container_name: cap-webapp
         image: cap_webapp
         build:
             context: client
@@ -35,12 +35,11 @@ services:
             - "api-server"
 
     api-server:
-        container_name: cap_api_server
+        container_name: cap-api-server
         image: cap_api_server
         build:
             context: server
             dockerfile: Dockerfile.api_server
-        hostname: api
         env_file: .env
         environment:
             DBHOST: ${DBHOST}
@@ -64,7 +63,7 @@ services:
         command: node --inspect=0.0.0.0:9229 server.js
 
     db:
-        container_name: cap_mysql
+        container_name: cap-mysql
         image: mysql
         env_file: .env
         environment:
@@ -83,7 +82,7 @@ services:
         restart: unless-stopped
 
     adminer:
-        container_name: cap_adminer
+        container_name: cap-adminer
         image: adminer
         env_file: .env
         expose:
