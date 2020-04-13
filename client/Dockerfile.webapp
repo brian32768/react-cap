@@ -4,10 +4,19 @@ MAINTAINER Brian H Wilson "brian@wildsong.biz"
 
 WORKDIR /home/node
 
+# Install these globally
 RUN npm install parcel -g && npm install serve -g 
 
-WORKDIR /home/node/react-cap
-RUN chmod 755 start_server.sh
+# This is just too confusing, the server and webapp won't be in sync if I do this here.
+# RUN git clone https://github.com/brian32768/react-cap.git
+
+# This uses the same files that the other docker containers use.
+WORKDIR /home/node
+COPY . .
+
+# This will also invoke npm install as needed.
+WORKDIR /home/node/client
+RUN npm run-script build
 
 EXPOSE 5000/tcp
-CMD start_server.sh
+CMD server index.js
