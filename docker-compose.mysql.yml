@@ -1,0 +1,39 @@
+# 3 1/2 parts
+#   mysql
+#   adminer, exposed via port 443 proxy as dbadmin.map46.com
+#   node running microservice
+#   mysql-backup, not implemented, backs up the databases
+#
+# extras: 
+#   a private network, so that mysql is not exposed
+#   a volume to persist sql database
+version: '3.6'
+services:
+    db:
+        container_name: cap_mysql
+        image: mysql
+        env_file: .env
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            # This database will be created if it does not exist.
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            # The database will be owned by this user/pass
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        expose:
+            - 3306
+        networks:
+            - cap_net
+        volumes:
+            - cap_data:/var/lib/mysql
+        restart: unless-stopped
+
+volumes:
+    cap_data:
+        name: cap_data
+networks:
+    proxy_net:
+        name: proxy_net
+        external: true
+    cap_net:
+        name: cap_net
