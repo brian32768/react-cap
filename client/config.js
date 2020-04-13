@@ -4,6 +4,6 @@
 //    require('dotenv').config();
 //}
 
-const APIHOST = process.env.APIHOST;
+const APIHOST = process.env.APIHOST || "http://cap-api-server:3000";
 
 module.exports = {APIHOST}
