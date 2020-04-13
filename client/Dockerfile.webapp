@@ -13,6 +13,10 @@ RUN npm install parcel -g && npm install serve -g
 # This uses the same files that the other docker containers use.
 WORKDIR /home/node
 
+# This just speeds up builds a little bit
+COPY [package.json package-lock.json] .
+RUN npm install
+
 # My context should be the client/ folder
 COPY . .
 
