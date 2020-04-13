@@ -59,13 +59,13 @@ function handleDisconnect() {
 app.get('/', (req, res) => res.send(`Hello, ${config.DBUSER}`))
 app.all('/ping', (req, res) => res.send(new Date()))
 
-app.get('/inventory', async (req, res) => {
+app.get('/server/inventory', async (req, res) => {
     connection.query(select_inventory, (err, pages) => {
         (err) ? res.send(err) : res.json(pages);
     })
 })
 
-app.get('/tests', async (req, res) => {
+app.get('/server/tests', async (req, res) => {
     connection.query(select_tests, (err, pages) => {
         (err) ? res.send(err) : res.json(pages);
     })

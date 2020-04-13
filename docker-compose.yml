@@ -91,14 +91,14 @@ services:
         image: adminer
         env_file: .env
         expose:
-            - ${ADMINER_PORT}
+            - 8080
         # Only open this port for testing;
         # normal operation is nginx proxied
         ports:
-            - ${ADMINER_PORT}:8080
+            - ${ADMINER_VIRTUAL_PORT}:8080
         environment:
             VIRTUAL_HOST: ${ADMINER_VIRTUAL_HOST}
-            VIRTUAL_PORT: ${ADMINER_PORT}
+            VIRTUAL_PORT: ${ADMINER_VIRTUAL_PORT}
             NETWORK_ACCESS: internal
             LETSENCRYPT_HOST: ${ADMINER_VIRTUAL_HOST}
             LETSENCRYPT_MAIL: ${MY_EMAIL}
