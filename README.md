@@ -8,6 +8,11 @@ Frontend: React + Bootstrap
 
 ## Configuration
 
+My set up will hide behind a jwilder nginx reverse proxy, and both the frontend and backend
+will be on the same URL, so the API includes "/server/" to help me differentiate them.
+For example the frontend is at https://capacity.wildsong.biz/ and the backend is at
+https://capacity.wildsong.biz/server/TABLENAME.
+
 There is a sample.env, you have to copy it to .env and then edit it.
 
 Stupid auth problem - node's mysql client is out of date so execute this to downgrade.

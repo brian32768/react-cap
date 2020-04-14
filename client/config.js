@@ -4,6 +4,7 @@
 //    require('dotenv').config();
 //}
 
-const APIHOST = "https://capacity.wildsong.biz/server"
+// This works because of the configuration of the reverse proxy. See README.
+const APIHOST = "/server"
 
 module.exports = {APIHOST}
