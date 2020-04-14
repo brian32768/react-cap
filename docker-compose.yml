@@ -17,7 +17,6 @@ services:
             dockerfile: Dockerfile.webapp
         env_file: .env
         environment:
-            APIHOST: ${APIHOST}
             VIRTUAL_HOST: ${WEBAPP_VIRTUAL_HOST}
             VIRTUAL_PORT: ${WEBAPP_VIRTUAL_PORT}
             NETWORK_ACCESS: internal
@@ -48,11 +47,13 @@ services:
             # The database will be owned by this user/pass
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-            VIRTUAL_HOST: ${API_SERVER_VIRTUAL_HOST}
-            VIRTUAL_PORT: ${API_SERVER_VIRTUAL_PORT}
-            NETWORK_ACCESS: internal
-            LETSENCRYPT_HOST: ${API_SERVER_VIRTUAL_HOST}
-            LETSENCRYPT_MAIL: ${MY_EMAIL}
+
+        # We're hiding behind the webapp URL, see README
+#            VIRTUAL_HOST: ${API_SERVER_VIRTUAL_HOST}
+#            VIRTUAL_PORT: ${API_SERVER_VIRTUAL_PORT}
+#            NETWORK_ACCESS: internal
+#            LETSENCRYPT_HOST: ${API_SERVER_VIRTUAL_HOST}
+#            LETSENCRYPT_MAIL: ${MY_EMAIL}
         expose: 
             - 3000
         ports:
@@ -60,7 +61,6 @@ services:
             - 9229:9229
         networks:
             - proxy_net
-            - cap_net
         restart: unless-stopped
         depends_on: 
             - "db"
@@ -81,7 +81,7 @@ services:
         expose:
             - 3306
         networks:
-            - cap_net
+            - proxy_net
         volumes:
             - cap_data:/var/lib/mysql
         restart: unless-stopped
@@ -96,15 +96,15 @@ services:
         # normal operation is nginx proxied
         ports:
             - ${ADMINER_VIRTUAL_PORT}:8080
-        environment:
-            VIRTUAL_HOST: ${ADMINER_VIRTUAL_HOST}
-            VIRTUAL_PORT: ${ADMINER_VIRTUAL_PORT}
-            NETWORK_ACCESS: internal
-            LETSENCRYPT_HOST: ${ADMINER_VIRTUAL_HOST}
-            LETSENCRYPT_MAIL: ${MY_EMAIL}
+#        environment:
+#         We hide behind the webapp's URL so comment this out
+#            VIRTUAL_HOST: ${ADMINER_VIRTUAL_HOST}
+#            VIRTUAL_PORT: ${ADMINER_VIRTUAL_PORT}
+#            NETWORK_ACCESS: internal
+#            LETSENCRYPT_HOST: ${ADMINER_VIRTUAL_HOST}
+#            LETSENCRYPT_MAIL: ${MY_EMAIL}
         networks:
             - proxy_net
-            - cap_net
         restart: unless-stopped
         depends_on: 
             - "db"
@@ -116,5 +116,3 @@ networks:
     proxy_net:
         name: proxy_net
         external: true
-    cap_net:
-        name: cap_net
