@@ -13,6 +13,8 @@ will be on the same URL, so the API includes "/server/" to help me differentiate
 For example the frontend is at https://capacity.wildsong.biz/ and the backend is at
 https://capacity.wildsong.biz/server/TABLENAME.
 
+Note to self, make sure you look at the entry in vhost.d/ folder in the nginx proxy.
+
 There is a sample.env, you have to copy it to .env and then edit it.
 
 Stupid auth problem - node's mysql client is out of date so execute this to downgrade.
