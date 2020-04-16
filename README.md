@@ -14,6 +14,7 @@ For example the frontend is at https://capacity.wildsong.biz/ and the backend is
 https://capacity.wildsong.biz/server/TABLENAME.
 
 Note to self, make sure you look at the entry in vhost.d/ folder in the nginx proxy.
+Refer to sample.vhost, copy it to capacity.YOURDOMAIN in vhost.d
 
 There is a sample.env, you have to copy it to .env and then edit it.
 

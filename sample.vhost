@@ -1,0 +1,9 @@
+location  /server {
+  proxy_pass           http://api-server:3000;
+  proxy_redirect       off;
+  proxy_set_header     Host $host;
+}
+
+
+
+
