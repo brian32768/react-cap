@@ -1,37 +1,14 @@
-# 4 1/2 parts
+# 3 1/2 parts
 #   mysql
 #   adminer, exposed via port 443 proxy as dbadmin.map46.com
 #   node running microservice
 #   mysql-backup, not implemented, backs up the databases
-#   a client
+#
 # extras: 
 #   a private network, so that mysql is not exposed
 #   a volume to persist sql database
 version: '3.6'
 services:
-    webapp:
-        container_name: cap-webapp
-        image: cap_webapp
-        build:
-            context: client
-            dockerfile: Dockerfile.webapp
-        env_file: .env
-        environment:
-            VIRTUAL_HOST: ${WEBAPP_VIRTUAL_HOST}
-            VIRTUAL_PORT: ${WEBAPP_VIRTUAL_PORT}
-            NETWORK_ACCESS: internal
-            LETSENCRYPT_HOST: ${WEBAPP_VIRTUAL_HOST}
-            LETSENCRYPT_MAIL: ${MY_EMAIL}
-        expose: 
-            - 5000
-        ports:
-            - ${WEBAPP_VIRTUAL_PORT}:5000
-#            - 9229:9229
-        networks:
-            - proxy_net
-        restart: unless-stopped
-        depends_on: 
-            - "api-server"
 
     api-server:
         container_name: cap-api-server
@@ -47,13 +24,11 @@ services:
             # The database will be owned by this user/pass
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-
-        # We're hiding behind the webapp URL, see README
-#            VIRTUAL_HOST: ${API_SERVER_VIRTUAL_HOST}
-#            VIRTUAL_PORT: ${API_SERVER_VIRTUAL_PORT}
-#            NETWORK_ACCESS: internal
-#            LETSENCRYPT_HOST: ${API_SERVER_VIRTUAL_HOST}
-#            LETSENCRYPT_MAIL: ${MY_EMAIL}
+            VIRTUAL_HOST: ${API_SERVER_VIRTUAL_HOST}
+            VIRTUAL_PORT: ${API_SERVER_VIRTUAL_PORT}
+            NETWORK_ACCESS: internal
+            LETSENCRYPT_HOST: ${API_SERVER_VIRTUAL_HOST}
+            LETSENCRYPT_MAIL: ${MY_EMAIL}
         expose: 
             - 3000
         ports:
@@ -61,6 +36,7 @@ services:
             - 9229:9229
         networks:
             - proxy_net
+            - cap_net
         restart: unless-stopped
         depends_on: 
             - "db"
@@ -81,7 +57,7 @@ services:
         expose:
             - 3306
         networks:
-            - proxy_net
+            - cap_net
         volumes:
             - cap_data:/var/lib/mysql
         restart: unless-stopped
@@ -96,15 +72,15 @@ services:
         # normal operation is nginx proxied
         ports:
             - ${ADMINER_VIRTUAL_PORT}:8080
-#        environment:
-#         We hide behind the webapp's URL so comment this out
-#            VIRTUAL_HOST: ${ADMINER_VIRTUAL_HOST}
-#            VIRTUAL_PORT: ${ADMINER_VIRTUAL_PORT}
-#            NETWORK_ACCESS: internal
-#            LETSENCRYPT_HOST: ${ADMINER_VIRTUAL_HOST}
-#            LETSENCRYPT_MAIL: ${MY_EMAIL}
+        environment:
+            VIRTUAL_HOST: ${ADMINER_VIRTUAL_HOST}
+            VIRTUAL_PORT: ${ADMINER_VIRTUAL_PORT}
+            NETWORK_ACCESS: internal
+            LETSENCRYPT_HOST: ${ADMINER_VIRTUAL_HOST}
+            LETSENCRYPT_MAIL: ${MY_EMAIL}
         networks:
             - proxy_net
+            - cap_net
         restart: unless-stopped
         depends_on: 
             - "db"
@@ -116,3 +92,5 @@ networks:
     proxy_net:
         name: proxy_net
         external: true
+    cap_net:
+        name: cap_net

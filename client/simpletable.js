@@ -17,9 +17,10 @@ const SimpleTable = (props) => {
 
     const getHeader = () => {
         if (props.data === null) return null;
+
         let keys = getKeys(props.data)
         return keys.map((key,index) => {
-            return <th key={key}>{key}</th>
+            return <th key={key}>{props.headers[key]}</th>
         })
     }
 
@@ -52,5 +53,6 @@ const SimpleTable = (props) => {
 }
 SimpleTable.propTypes = {
     data: PropTypes.array,
+    headers: PropTypes.object,
 };
 export default SimpleTable

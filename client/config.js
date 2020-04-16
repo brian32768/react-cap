@@ -5,6 +5,6 @@
 //}
 
 // This works because of the configuration of the reverse proxy. See README.
-const APIHOST = "/server"
+const APIHOST = (process.env.NODE_ENV !== 'production')?  "https://capacity.co.clatsop.or.us/server" : "/server"
 
 module.exports = {APIHOST}

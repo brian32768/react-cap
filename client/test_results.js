@@ -8,6 +8,13 @@ const sample_data = [
     { ID: 2, name: "Julie", count: 456 },
 ]
 
+const lut_headers = {
+    "ID" : "ID",
+    "positive": "Positive",
+    "negative": "Negative",
+    "deaths": "Deaths",
+};
+
 const tests_url = `${APIHOST}/tests`
 
 const TestsForm = () => {
@@ -25,10 +32,7 @@ const TestsForm = () => {
     };
     return (
         <>
-            <SimpleTable data={tests} />
-            <form onSubmit={handleSubmit}>
-                <input type="text" />
-            </form> 
+            <SimpleTable data={tests} headers={lut_headers} />
         </>
     )
 }
