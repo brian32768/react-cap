@@ -96,13 +96,12 @@ services:
         # normal operation is nginx proxied
         ports:
             - ${ADMINER_VIRTUAL_PORT}:8080
-#        environment:
-#         We hide behind the webapp's URL so comment this out
-#            VIRTUAL_HOST: ${ADMINER_VIRTUAL_HOST}
-#            VIRTUAL_PORT: ${ADMINER_VIRTUAL_PORT}
-#            NETWORK_ACCESS: internal
-#            LETSENCRYPT_HOST: ${ADMINER_VIRTUAL_HOST}
-#            LETSENCRYPT_MAIL: ${MY_EMAIL}
+        environment:
+            VIRTUAL_HOST: ${ADMINER_VIRTUAL_HOST}
+            VIRTUAL_PORT: ${ADMINER_VIRTUAL_PORT}
+            NETWORK_ACCESS: internal
+            LETSENCRYPT_HOST: ${ADMINER_VIRTUAL_HOST}
+            LETSENCRYPT_MAIL: ${MY_EMAIL}
         networks:
             - proxy_net
         restart: unless-stopped
