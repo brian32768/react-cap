@@ -2,21 +2,18 @@
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
+    "version": "0.3.0",
     "configurations": [
         {
-            "type": "node",
+            "type": "chrome",
             "request": "launch",
-            "name": "Launch via NPM",
-            "runtimeExecutable": "npm",
-            "runtimeArgs": [
-                "run-script",
-                "debug"
-            ],
-            "port": 3000,
-            "skipFiles": [
-                "<node_internals>/**"
-            ]
+            "name": "Launch client",
+            "url": "http://localhost:1234",
+            "webRoot": "${workspaceFolder}/client",
+            "breakOnLoad": true,
+            "sourceMapPathOverrides": {
+                "*": "${webRoot}/client/*" 
+            }
         },
         {
             "type": "node",
