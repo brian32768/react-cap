@@ -70,7 +70,7 @@ const InventoryForm = () => {
         let psh_masks  = ['PSH masks']
         let psh_gloves = ['PSH gloves']
         let psh_gowns  = ['PSH gowns']
-        let psh_face   = ['CMH face shields']
+        let psh_face   = ['PSH face shields']
 
         let row;
         for (let id = 0; id < inventory.length; id++) {
@@ -94,8 +94,8 @@ const InventoryForm = () => {
             bindto: '#chart',
             data: {
                 columns: [
-                    cmh_masks,cmh_gloves, cmh_gowns, 
-                    psh_masks, psh_gloves, psh_gowns
+                    cmh_masks, cmh_gloves, cmh_gowns, cmh_face,
+                    psh_masks, psh_gloves, psh_gowns, psh_face
                 ],
                 types: {
                     'CMH masks': 'bar',
