@@ -39,44 +39,86 @@ const chart_data = [
         ['data2', 50, 20, 10, 40, 15, 25]
     ]
 
-
 const inventory_url = `${APIHOST}/inventory`
 
 const InventoryForm = () => {
     const [inventory, setInventory] = useState(null);
-    //const [barchart, setBarchart] = useState(null);
+    const [barchart, setBarchart] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
             const resp = await axios.get(inventory_url)
             setInventory(resp.data);
+            //console.log(resp.data);
+
+            setBarchart(chart_data)
+            c3Barchart()
         }
         fetchData();
     }, []);
 
-    const handleSubmit = (event) => {
-        console.log("submission", event)
-    };
+    const c3Barchart = () => { 
+        if (barchart === null) {
+            return null;
+        }
 
-    const barchart = () => { generate({
+        let cmh_masks  = ['CMH masks']
+        let cmh_gloves = ['CMH gloves']
+        let cmh_gowns  = ['CMH gowns']
+        let cmh_face   = ['CMH face shields']
+
+        let psh_masks  = ['PSH masks']
+        let psh_gloves = ['PSH gloves']
+        let psh_gowns  = ['PSH gowns']
+        let psh_face   = ['CMH face shields']
+
+        let row;
+        for (let id = 0; id < inventory.length; id++) {
+            row = inventory[id]
+            if (row.facility === 'CMH') {
+                cmh_masks.push(row.ppe_respirators_all)
+                cmh_gloves.push(row.ppe_gloves)
+                cmh_gowns.push(row.ppe_gowns)
+                cmh_face.push(row.ppe_eye_protect)
+            }
+            if (row.facility === 'PSH') {
+                psh_masks.push(row.ppe_respirators_all)
+                psh_gloves.push(row.ppe_gloves)
+                psh_gowns.push(row.ppe_gowns)
+                psh_face.push(row.ppe_eye_protect)
+            }
+        }
+        console.log(row);
+
+        generate({
             bindto: '#chart',
             data: {
-                columns: chart_data,
+                columns: [
+                    cmh_masks,cmh_gloves, cmh_gowns, 
+                    psh_masks, psh_gloves, psh_gowns
+                ],
                 types: {
-                    data1: 'bar',
-                    data2: 'bar'
+                    'CMH masks': 'bar',
+                    'CMH gloves': 'bar',
+                    'CMH gowns': 'bar',
+                    'CMH face shields': 'bar',
+
+                    'PSH masks': 'bar',
+                    'PSH gloves': 'bar',
+                    'PSH gowns': 'bar',
+                    'PSH face shields': 'bar',
                 }
             }
         })
     };
     return (
         <>
-            <h4>Meaningless barchart 4-15-2020 8:00PM</h4>
-        <div id="chart">
-            { barchart() }
-        </div>
-        <br />
+            <div id="chart">
+                {c3Barchart()}
+            </div>
+        <p>
         <SimpleTable data={inventory} headers={lut_header}/>
+        </p>
         </>
     )
 }

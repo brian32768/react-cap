@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
     
 render(
     <>
-        <App title="react-cap test" />
+        <App title="Clatsop County Capacities" />
     </>,
     document.getElementById("app")
 );
