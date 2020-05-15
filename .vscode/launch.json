@@ -4,43 +4,50 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.3.0",
     "configurations": [
-    {
-        "type": "node",
-        "request": "launch",
-        "name": "Launch API server via NPM",
-        "runtimeExecutable": "npm",
-        "cwd": "${workspaceFolder}/server",
-        "runtimeArgs": [
-            "run-script",
-            "debug"
-        ],
-        "port": 9229,
-        "skipFiles": [
-            "<node_internals>/**"
-        ]
-    },
-    {
-        "type": "chrome",
-        "request": "launch",
-        "name": "Launch client",
-        "url": "http://localhost:1234",
-        "webRoot": "${workspaceFolder}/client",
-        "breakOnLoad": true,
-        "sourceMapPathOverrides": {
-            "*": "${webRoot}/client/*" 
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch API server via NPM",
+            "runtimeExecutable": "npm",
+            "cwd": "${workspaceFolder}/server",
+            "runtimeArgs": [
+                "run-script",
+                "debug"
+            ],
+            "port": 9229,
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch client",
+            "url": "http://localhost:1234",
+            "webRoot": "${workspaceFolder}/client",
+            "breakOnLoad": true,
+            "sourceMapPathOverrides": {
+                "*": "${webRoot}/client/*"
+            }
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to API Server",
+            "address": "127.0.0.1",
+            "port": 9229,
+            "localRoot": "${workspaceFolder}/server",
+            "remoteRoot": "/home/node",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
         }
-    },
-    {
-        "type": "node",
-        "request": "attach",
-        "name": "Attach to API Server",
-        "address": "127.0.0.1",
-        "port": 9229,
-        "localRoot": "${workspaceFolder}/server",
-        "remoteRoot": "/home/node",
-        "skipFiles": [
-            "<node_internals>/**"
-        ]
-    }            
     ]
 }
