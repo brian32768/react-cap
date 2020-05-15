@@ -1,11 +1,5 @@
-# 3 1/2 parts
+# Just the database, exposed so we can develop the API and client on Plover
 #   mysql
-#   adminer, exposed via port 443 proxy as dbadmin.map46.com
-#   node running microservice
-#   mysql-backup, not implemented, backs up the databases
-#
-# extras: 
-#   a private network, so that mysql is not exposed
 #   a volume to persist sql database
 version: '3.6'
 services:
@@ -22,8 +16,10 @@ services:
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         expose:
             - 3306
+        ports:
+            - 3306:3306
         networks:
-            - cap_net
+            - proxy_net
         volumes:
             - cap_data:/var/lib/mysql
         restart: unless-stopped
@@ -35,5 +31,3 @@ networks:
     proxy_net:
         name: proxy_net
         external: true
-    cap_net:
-        name: cap_net
