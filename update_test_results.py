@@ -92,6 +92,9 @@ def append_to_database(output_fc, output_db):
 
 with arcpy.EnvManager(scratchWorkspace=fgdb, workspace=fgdb):
     fetch_data(output_fc)
-    append_to_database(output_fc, "test_results_fc") #"covid19_test_results")
+
+    final_dest = os.path.join(gdb, "covid19_test_results")
+#   final_dest = "test_results_fc"
+    append_to_database(output_fc, final_dest)
 print("All done!")
 
