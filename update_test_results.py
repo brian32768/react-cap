@@ -1,3 +1,4 @@
+import os
 import arcgis.gis
 import arcgis.features
 import arcpy
@@ -82,7 +83,7 @@ def append_to_database(output_fc, output_db):
             "positive \"positive\" true true false 4 Long 0 0,First,#," + output_fc + ",Cases,-1,-1;" + 
             "negative \"negative\" true true false 4 Long 0 0,First,#," + output_fc + ",NegativeTests,-1,-1;" + 
             "CreateDate \"CreateDate\" true true false 8 Date 0 0,First,#," + output_fc + ",CreateDate,-1,-1;" + 
-            "utcCreateDate \"utcCreateDate\" true true false 8 Date 0 0,First,#," + output_fc + ",utcCreateDate,-1,-1;" + 
+            #"utcCreateDate \"utcCreateDate\" true true false 8 Date 0 0,First,#," + output_fc + ",utcCreateDate,-1,-1;" + 
             "county \"county\" true true false 25 Text 0 0,First,#," + output_fc + ",altName,-1,-1;"
             "deaths \"deaths\" true true false 4 Long 0 0,First,#," + output_fc + ",Deaths,-1,-1", 
         subtype="", expression="")
