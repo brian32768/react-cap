@@ -98,4 +98,5 @@ with arcpy.EnvManager(scratchWorkspace=fgdb, workspace=fgdb):
 #   final_dest = "test_results_fc" # Write to file geodatabase (via workspace)
     append_to_database(output_fc, final_dest)
 print("All done!")
+exit(0)
 
