@@ -59,7 +59,7 @@
     },
     "peerDependencies": {},
     "dependencies": {
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "bootstrap": "^4.4.1",
         "c3": "^0.7.15",
         "config": "^3.3.1",
